@@ -5,8 +5,6 @@ var activePlayer = 0;
 var scores = [0, 0];
 // Toglogchiin eeljindee tsugluulj baigaa onoog hadgalah huwisagch
 var roundScore = 0;
-// Shooni ali talaaraa buusniig hadgalah huwisagch heregtei, 1-6 gesen utgiig ene huwisagchid sanamsargvigeer vvsgej ogno.
-
 //Programm ehlehed beltgey
 document.getElementById("score-0").textContent = '0';
 document.getElementById("score-1").textContent = '0';
@@ -32,28 +30,41 @@ document.querySelector(".btn-roll").addEventListener("click", function(){
     }
     else{
         // 1 buusan tul toglogchiin eeljiig ene hesegt solij ogno.
-        //Ene toglogchiin eeljiindee tsugluulsan onoog 0 bolgono.
-        roundScore = 0;
-        document.getElementById("current-" + activePlayer).textContent = 0;
-        //Toglogchiin eeljiig nogoo toglogchruu shiljvvlne.
-        //Herew idewhtei toglogch ni 0 baiwal idewhtei toglogchiig 1 bolgo.
-        //Ugui bol idewhtei toglogchiig 0 bolgo.
-        //Gurwalsan operator nohtsol shalgah
-        activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
-        //Ulaan tsegiig shiljvvleh
-        document.querySelector(".player-0-panel").classList.toggle("active");
-        document.querySelector(".player-1-panel").classList.toggle("active");
-
- 
-        diceDom.style.display = 'none';
-        /*
-        if(activePlayer === 0){
-            activePlayer = 1;
-        }
-        else{
-            activePlayer = 0;
-        }
-        */ 
+        switchToNextPlayer();
     }
-
 });
+// Hold towchnii event lisntener
+document.querySelector(".btn-hold").addEventListener("click", function(){
+// Ug togllogchiin tsugluulsan eeljnii onoog global onoon deer ni nemj ogno.
+scores[activePlayer] = scores[activePlayer] + roundScore;
+
+//delgets deer onoog ni oorchilno.
+document.getElementById("score-" + activePlayer).textContent = scores[activePlayer];
+
+//Ug toglogch hojson esehiig (onoo ni 100 aas ih eseh) shalgah
+if(scores[activePlayer] >= 10) {
+    //Yalagch gesen text iig nerniih ni orond garna
+    document.getElementById("name-" + activePlayer).textContent = "WINNER!!!";
+    //winner iig html code dotorh hargalzah class ni d oruulj bna
+    document.querySelector(".player-"+ activePlayer +"-panel").classList.add("winner");
+    //Yalagch todorson active iig hargalzah class aas hasj bna
+    document.querySelector(".player-"+ activePlayer +"-panel").classList.remove("active");
+}else{
+    //Toglogchiin eeljiig solih
+    switchToNextPlayer();
+}
+})
+//Ene Function ni togloh eeljiig daraachiin toglogchruu shiljvvldeg.
+function switchToNextPlayer() {
+//Ene toglogchiin eeljindee tsugluulsan onoog 0 bolgono
+roundScore = 0;
+document.getElementById("current-" + activePlayer).textContent = 0;
+//Toglogchiin eeljiig nogoo toglogchruu shiljvvlne.
+//Gurwalsan operator nohtsol shalgah
+activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
+//Ulaan tsegiig shiljvvleh
+document.querySelector(".player-0-panel").classList.toggle("active");
+document.querySelector(".player-1-panel").classList.toggle("active");
+//shoog tvr alga bolgono
+diceDom.style.display = 'none';
+}
