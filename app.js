@@ -82,7 +82,7 @@ scores[activePlayer] = scores[activePlayer] + roundScore;
 document.getElementById("score-" + activePlayer).textContent = scores[activePlayer];
 
 //Ug toglogch hojson esehiig (onoo ni 100 aas ih eseh) shalgah
-if(scores[activePlayer] >= 10) {
+if(scores[activePlayer] >= 100) {
     //Togloomig dussan tolowt oruulna 
     isOverGame = true;
     //Yalagch gesen text iig nerniih ni orond garna
