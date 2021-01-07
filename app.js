@@ -1,4 +1,6 @@
 //TOgloomiin bvh gazart ashiglagdah global huwisagchiig end zarlay
+//Togloom duussan esehiig hadgalah tolwiin huwisagch
+var isOverGame;
 //Ali toglogch shoo shidew ew gedgiig end hadgalna.
 var activePlayer;
 //Hoyr toglogchiin tsugluulsan onoonuud
@@ -9,8 +11,14 @@ var roundScore;
 //Shoonii zurgiig vzvvleh elementiig DOM oos haij olood end hadgalay.
 //End bolhoor dice gedeg class aar zurgiig olj bna
 var diceDom = document.querySelector(".dice");
+
+//Togloomiig ehlvvlne 
+initGame();
+
 //Togloomiig shineer ehlehed beltgene.
 function initGame(){
+    // Togloom ehellee gedeg tolowt oruulna
+    isOverGame = false;
     // Toglogchiin eeljiig hadgalah huwisagch,negdvgeer toglogchiin 0, hoyrdugaar toglogchiig 1 gej temdegley.
     activePlayer = 0;
     
@@ -33,13 +41,15 @@ function initGame(){
 
     document.querySelector(".player-0-panel").classList.remove("active");
     document.querySelector(".player-1-panel").classList.remove("active");
-    
+
     document.querySelector(".player-0-panel").classList.add("active");
 
     diceDom.style.display = 'none';
     }
-//Shoog shideh event listener
+//Roll Dice - Shoo shideh event listener
 document.querySelector(".btn-roll").addEventListener("click", function(){
+    //Herwee toglogch todorson bol Roll Dice Listener ymarch uildel hiihgui
+    if(isOverGame !== true){
     // 1 - 6 hvrtel sanamsargvi neg too gragaj awna
     var diceNumber = Math.floor(Math.random() * 6) + 1;
     // Shooni zurgiig web deer gargaj irne
@@ -55,10 +65,14 @@ document.querySelector(".btn-roll").addEventListener("click", function(){
     else{
         // 1 buusan tul toglogchiin eeljiig ene hesegt solij ogno.
         switchToNextPlayer();
+        diceDom.style.display = 'block';
+    }
     }
 });
 // Hold towchnii event lisntener
 document.querySelector(".btn-hold").addEventListener("click", function(){
+    //Herwee yalagch todorson bol hold listener ymarch uildel hiihgui 
+    if(isOverGame !== true){
 // Ug togllogchiin tsugluulsan eeljnii onoog global onoon deer ni nemj ogno.
 scores[activePlayer] = scores[activePlayer] + roundScore;
 
@@ -67,6 +81,8 @@ document.getElementById("score-" + activePlayer).textContent = scores[activePlay
 
 //Ug toglogch hojson esehiig (onoo ni 100 aas ih eseh) shalgah
 if(scores[activePlayer] >= 10) {
+    //Togloomig dussan tolowt oruulna 
+    isOverGame = true;
     //Yalagch gesen text iig nerniih ni orond garna
     document.getElementById("name-" + activePlayer).textContent = "WINNER!!!";
     //winner iig html code dotorh hargalzah class ni d oruulj bna
@@ -77,6 +93,7 @@ if(scores[activePlayer] >= 10) {
     //Toglogchiin eeljiig solih
     switchToNextPlayer();
 }
+    }
 })
 //Ene Function ni togloh eeljiig daraachiin toglogchruu shiljvvldeg.
 function switchToNextPlayer() {
