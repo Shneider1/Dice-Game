@@ -67,6 +67,8 @@ document.querySelector(".btn-roll").addEventListener("click", function(){
         switchToNextPlayer();
         diceDom.style.display = 'block';
     }
+    }else{
+        alert("Togloom duussan bna. New Game deer darj shineer ehlene vv");
     }
 });
 // Hold towchnii event lisntener
@@ -93,6 +95,8 @@ if(scores[activePlayer] >= 10) {
     //Toglogchiin eeljiig solih
     switchToNextPlayer();
 }
+    }else{
+        alert("Togloom duussan bna. New Game deer darj shineer ehlene vv");
     }
 })
 //Ene Function ni togloh eeljiig daraachiin toglogchruu shiljvvldeg.
